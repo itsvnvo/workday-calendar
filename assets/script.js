@@ -1,40 +1,49 @@
 //Variables
 var timeDisplayEl = $('#time-display');
-var now = moment().format("H A");
+
+var timeBlockEl = [
+    {time: "9 AM "},
+    {time: "10 AM"},
+    {time: "11 AM"},
+    {time: "12 PM"},
+    {time: "1 PM "},
+    {time: "2 PM "},
+    {time: "3 PM "},
+    {time: "4 PM "},
+    {time: "5 PM "}
+];
+
+localStorage.getItem('textarea')
+
 // Displays current day and time
 function displayTime() {
     var timeNow = moment().format('MMMM Do YYYY, h:mm:ss a');
     timeDisplayEl.text(timeNow);
 }
+
 // Makes current day time tick by 1 second
 setInterval(displayTime, 1000);
 
 
 
-var timeBlockEl = [
-    {time: "9 AM", event: ""},
-    {time: "10 AM", event: ""},
-    {time: "11 AM", event: ""},
-    {time: "12 PM", event: ""},
-    {time: "1 PM", event: ""},
-    {time: "2 PM", event: ""},
-    {time: "3 PM", event: ""},
-    {time: "4 PM", event: ""},
-    {time: "5 PM", event: ""}
-];
-
+// Makes rows and the columns including the textarea and button at the end in timedisplay
 timeBlockEl.forEach(function(timeRows, index) {
-    var timeDisplay = '<div class="row">' 
-    var clickTime =  '<button type="button">'
-    timeDisplay+= '</div>'
-    clickTime+= timeRows.time;
-    clickTime+= '</button>';
-    console.log(timeDisplay)
-    console.log(clickTime)
+    var timeDisplay = '<div class="time-block"></div>' 
+    var textRow = '<textarea <div class="col-6 justify-content-center"></textarea></div>'
+    var btnEl = '<button class="btn saveBtn"</button>'
+    timeDisplay+= timeRows.time + textRow + btnEl
+    console.log(textRow);
+    console.log(btnEl);
     $(".container").append(timeDisplay);
-    $(".container").append(clickTime);
-
 });
 
-function colorBlocks() {
-}
+// Saves the local storage
+$(document).ready(function(){
+    $(".saveBtn").on("click", function(){
+        var task = $(this).prev().val();
+        var time = $(this).parent().attr("id");
+        localStorage.setItem(time, task);
+        console.log(task);
+        console.log(time);
+     }
+)});
