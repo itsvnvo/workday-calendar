@@ -1,19 +1,18 @@
 //Variables
 var timeDisplayEl = $('#time-display');
-
+var counter = 0
 var timeBlockEl = [
-    {time: "9 AM "},
-    {time: "10 AM"},
-    {time: "11 AM"},
-    {time: "12 PM"},
-    {time: "1 PM "},
-    {time: "2 PM "},
-    {time: "3 PM "},
-    {time: "4 PM "},
-    {time: "5 PM "}
+    { time: "9 AM " },
+    { time: "10 AM" },
+    { time: "11 AM" },
+    { time: "12 PM" },
+    { time: "1 PM " },
+    { time: "2 PM " },
+    { time: "3 PM " },
+    { time: "4 PM " },
+    { time: "5 PM " }
 ];
 
-localStorage.getItem('textarea')
 
 // Displays current day and time
 function displayTime() {
@@ -25,25 +24,28 @@ function displayTime() {
 setInterval(displayTime, 1000);
 
 
-
 // Makes rows and the columns including the textarea and button at the end in timedisplay
-timeBlockEl.forEach(function(timeRows, index) {
-    var timeDisplay = '<div class="time-block"></div>' 
-    var textRow = '<textarea <div class="col-6 justify-content-center"></textarea></div>'
-    var btnEl = '<button class="btn saveBtn"</button>'
-    timeDisplay+= timeRows.time + textRow + btnEl
-    console.log(textRow);
-    console.log(btnEl);
+timeBlockEl.forEach(function (timeRows) {
+    var timeDisplay = '<div class="row time-block col-1"></div>'
+    var getStorage = JSON.parse(localStorage.getItem("btnSave" + counter))
+    var textRow = '<textarea id=id' + counter + ' <div class="col-8 justify-content-center time-block" ></textarea></div>'
+    var btnEl = '<button id=btnSave' + counter + ' <div class="btn saveBtn col-1"><i class="fas fa-save"></i></button></div>'
+    timeDisplay += timeRows.time + textRow + btnEl
     $(".container").append(timeDisplay);
+    if (getStorage) {
+        document.getElementById("id" + counter).value = getStorage
+    }
+    counter++
 });
 
+
 // Saves the local storage
-$(document).ready(function(){
-    $(".saveBtn").on("click", function(){
+$(document).ready(function () {
+    $("#btnSave0, #btnSave1, #btnSave2, #btnSave3, #btnSave4, #btnSave5, #btnSave6, #btnSave7, #btnSave8").on("click", function () {
         var task = $(this).prev().val();
-        var time = $(this).parent().attr("id");
-        localStorage.setItem(time, task);
+        localStorage.setItem($(this).attr('id'), JSON.stringify(task));
         console.log(task);
-        console.log(time);
-     }
-)});
+
+    }
+    )
+});
