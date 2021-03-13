@@ -2,7 +2,7 @@
 var timeDisplayEl = $('#time-display');
 var counter = 0
 var timeBlockEl = [
-    { time: "9 AM" },
+    { time: "09 AM" },
     { time: "10 AM" },
     { time: "11 AM" },
     { time: "12 PM" },
@@ -27,7 +27,7 @@ setInterval(displayTime, 1000);
 timeBlockEl.forEach(function (timeRows) {
     var timeDisplay = '<div class="hour col"></div>'
     var getStorage = JSON.parse(localStorage.getItem("btnSave" + counter));
-    var textRow = '<textarea id=id' + counter + ' <div class="col-10" ></textarea>'
+    var textRow = '<textarea id=id' + counter + ' <div class="col-10"></textarea>'
     var btnEl = '<button id=btnSave' + counter + ' <div class="btn saveBtn col-1"><i class="fas fa-save"></i></button></div></div></div>'
     timeDisplay += timeRows.time + textRow + btnEl
     $(".container").append(timeDisplay);
@@ -42,7 +42,6 @@ $(document).ready(function () {
     $("#btnSave0, #btnSave1, #btnSave2, #btnSave3, #btnSave4, #btnSave5, #btnSave6, #btnSave7, #btnSave8").on("click", function () {
         var task = $(this).prev().val();
         localStorage.setItem($(this).attr('id'), JSON.stringify(task));
-        console.log(task);
     }
     )
 });
@@ -60,4 +59,3 @@ for (var i = 0; i < blockArray.length; i++) {
         blockArray[i].classList.add("future");
     }
 }
-console.log(timeBlockEl)
